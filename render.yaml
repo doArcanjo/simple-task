@@ -6,7 +6,9 @@ services:
     name: simple-task
     runtime: node
     plan: free
-    buildCommand: npm install && npm run build
+    # --include=dev: NODE_ENV=production would otherwise skip devDependencies,
+    # and vite (the build tool) is one.
+    buildCommand: npm install --include=dev && npm run build
     startCommand: npm run seed && npm start
     envVars:
       - key: NODE_ENV
