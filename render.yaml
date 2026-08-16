@@ -1,0 +1,17 @@
+# Render.com blueprint — free tier, one service serving API + built frontend.
+# The free disk is ephemeral, so the start command re-seeds on every boot:
+# the demo is always populated (demo@demo.dev / demo1234) and resets when idle.
+services:
+  - type: web
+    name: simple-task
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm run seed && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "true"
+      - key: JWT_SECRET
+        generateValue: true
